@@ -39,17 +39,17 @@ public class AccountController {
 
     //PUT - ADD Balance to User
     @PutMapping("/addBalance")
-    public ResponseEntity<Integer> addBalance
+    public ResponseEntity<Account> addBalance
             (@RequestBody @Valid RequestChangeBalance req){
-        Integer afterBalance = accountService.addBalance(req.getPhone(), req.getAmount());
-        return ResponseEntity.ok().body(afterBalance);
+        Account account = accountService.addBalance(req.getPhone(), req.getAmount());
+        return ResponseEntity.ok().body(account);
     }
 
     //PUT - REDUCE Balance to User
     @PutMapping("/reduceBalance")
-    public ResponseEntity<Integer> reduceBalance
+    public ResponseEntity<Account> reduceBalance
     (@RequestBody @Valid RequestChangeBalance req){
-        Integer afterBalance = accountService.reduceBalance(req.getPhone(), req.getAmount());
-        return ResponseEntity.ok().body(afterBalance);
+        Account account = accountService.reduceBalance(req.getPhone(), req.getAmount());
+        return ResponseEntity.ok().body(account);
     }
 }

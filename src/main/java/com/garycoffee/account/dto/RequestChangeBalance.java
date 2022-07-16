@@ -17,5 +17,5 @@ public class RequestChangeBalance {
 
     @NotNull
     @JsonProperty("amount")
-    Integer Amount;
+    Integer amount;
 }

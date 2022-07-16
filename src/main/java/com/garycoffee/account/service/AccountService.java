@@ -36,21 +36,23 @@ public class AccountService {
        }
     }
 
-    public Integer addBalance(String phone, Integer addAmount){
+    public Account addBalance(String phone, Integer addAmount){
         Account targetAccount = accountRepo.getAccountByPhone(phone);
         Integer currentBalance = targetAccount.getAccountBalance();
         Integer AfterCountBalance = currentBalance + addAmount;
         targetAccount.setAccountBalance(AfterCountBalance);
-        return AfterCountBalance;
+        accountRepo.save(targetAccount);
+        return targetAccount;
     }
 
-    public Integer reduceBalance(String phone, Integer addAmount){
+    public Account reduceBalance(String phone, Integer addAmount){
         Account targetAccount = accountRepo.getAccountByPhone(phone);
         Integer currentBalance = targetAccount.getAccountBalance();
         Integer AfterCountBalance = currentBalance - addAmount;
         if(AfterCountBalance>=0){
             targetAccount.setAccountBalance(AfterCountBalance);
-            return AfterCountBalance;
+            accountRepo.save(targetAccount);
+            return targetAccount;
         }else{
             throw new RuntimeException("Your Balance have not enough money.");
         }
