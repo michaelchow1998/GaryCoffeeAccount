@@ -30,11 +30,11 @@ public class AccountController {
     }
 
     @GetMapping("/{phone}")
-    public ResponseEntity<Account> fetchAccountByUserName(@PathVariable String phone){
+    public ResponseEntity<Integer> fetchAccountByUserName(@PathVariable String phone){
 
-        Account account = accountService.getAccount(phone);
+        Integer accountBalance = accountService.getAccountBalance(phone);
 
-        return ResponseEntity.ok().body(account);
+        return ResponseEntity.ok().body(accountBalance);
     }
 
     //PUT - ADD Balance to User

@@ -27,10 +27,10 @@ public class AccountService {
     }
 
 
-    public Account getAccount(String phone){
+    public Integer getAccountBalance(String phone){
        Account account = accountRepo.getAccountByPhone(phone);
        if(account != null){
-           return account;
+           return account.getAccountBalance();
        }else{
            return null;
        }
