@@ -27,20 +27,22 @@ public class AccountService {
     }
 
 
-    public Integer getAccountBalance(String phone){
+    public Account getAccountBalance(String phone){
        Account account = accountRepo.getAccountByPhone(phone);
        if(account != null){
-           return account.getAccountBalance();
+           return account;
        }else{
            return null;
        }
     }
+
 
     public Account addBalance(String phone, Integer addAmount){
         Account targetAccount = accountRepo.getAccountByPhone(phone);
         Integer currentBalance = targetAccount.getAccountBalance();
         Integer AfterCountBalance = currentBalance + addAmount;
         targetAccount.setAccountBalance(AfterCountBalance);
+        targetAccount.setIntegralBalance(targetAccount.getIntegralBalance()+addAmount/10);
         accountRepo.save(targetAccount);
         return targetAccount;
     }
@@ -58,4 +60,30 @@ public class AccountService {
         }
 
     }
+
+    public Account addIntegral(String phone, Integer addAmount){
+        Account targetAccount = accountRepo.getAccountByPhone(phone);
+        Integer currentBalance = targetAccount.getIntegralBalance();
+        Integer AfterCountBalance = currentBalance + addAmount;
+        targetAccount.setIntegralBalance(AfterCountBalance);
+        accountRepo.save(targetAccount);
+        return targetAccount;
+    }
+
+    public Account reduceIntegral(String phone, Integer addAmount){
+        Account targetAccount = accountRepo.getAccountByPhone(phone);
+        Integer currentBalance = targetAccount.getIntegralBalance();
+        Integer AfterCountBalance = currentBalance - addAmount;
+        if(AfterCountBalance>=0){
+            targetAccount.setIntegralBalance(AfterCountBalance);
+            accountRepo.save(targetAccount);
+            return targetAccount;
+        }else{
+            throw new RuntimeException("Your Balance have not enough Integral.");
+        }
+
+    }
+
+
+
 }

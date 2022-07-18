@@ -30,12 +30,14 @@ public class AccountController {
     }
 
     @GetMapping("/{phone}")
-    public ResponseEntity<Integer> fetchAccountByUserName(@PathVariable String phone){
+    public ResponseEntity<Account> fetchAccountByUserName(@PathVariable String phone){
 
-        Integer accountBalance = accountService.getAccountBalance(phone);
+        Account account = accountService.getAccountBalance(phone);
 
-        return ResponseEntity.ok().body(accountBalance);
+        return ResponseEntity.ok().body(account);
     }
+
+
 
     //PUT - ADD Balance to User
     @PutMapping("/addBalance")
@@ -50,6 +52,22 @@ public class AccountController {
     public ResponseEntity<Account> reduceBalance
     (@RequestBody @Valid RequestChangeBalance req){
         Account account = accountService.reduceBalance(req.getPhone(), req.getAmount());
+        return ResponseEntity.ok().body(account);
+    }
+
+    //PUT - ADD Integral to User
+    @PutMapping("/addIntegral")
+    public ResponseEntity<Account> addIntegral
+            (@RequestBody @Valid RequestChangeBalance req){
+        Account account = accountService.addIntegral(req.getPhone(), req.getAmount());
+        return ResponseEntity.ok().body(account);
+    }
+
+    //PUT - REDUCE Integral to User
+    @PutMapping("/reduceIntegral")
+    public ResponseEntity<Account> reduceIntegral
+            (@RequestBody @Valid RequestChangeBalance req){
+        Account account = accountService.reduceIntegral(req.getPhone(), req.getAmount());
         return ResponseEntity.ok().body(account);
     }
 }
