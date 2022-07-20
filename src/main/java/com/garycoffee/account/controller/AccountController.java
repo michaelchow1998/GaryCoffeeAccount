@@ -31,9 +31,7 @@ public class AccountController {
 
     @GetMapping("/{phone}")
     public ResponseEntity<Account> fetchAccountByUserName(@PathVariable String phone){
-
         Account account = accountService.getAccountBalance(phone);
-
         return ResponseEntity.ok().body(account);
     }
 
