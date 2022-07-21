@@ -1,15 +1,12 @@
-#server:
-#    port: $PORT
+server:
+    port: $PORT
 #server:
 #    port: 8070
-#spring:
-#    data:
-#        mongodb:
-#            auto-index-creation: true
-#            database: GaryCoffee
-#            host: localhost
-#            port: 27017
+
 spring:
     data:
         mongodb:
             uri: mongodb+srv://root:zx6666662@garycoffeeaccount.cpoey.mongodb.net/GaryCoffeeAccount
+    jackson:
+        date-format: yyyy-MM-dd HH:mm:ss
+        time-zone: GMT+8
