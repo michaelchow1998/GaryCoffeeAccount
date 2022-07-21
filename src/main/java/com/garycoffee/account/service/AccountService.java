@@ -8,7 +8,6 @@ import com.garycoffee.account.model.Account;
 import com.garycoffee.account.repo.AccountRepo;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -53,12 +52,13 @@ public class AccountService {
         targetAccount.setIntegralBalance(targetAccount.getIntegralBalance()+addAmount/10);
         accountRepo.save(targetAccount);
 
-        userLogWebClientRequest.createUserLog(
+        String logMessage = userLogWebClientRequest.createUserLog(
                 new RequestLogUser(
                         phone,
                         TransactionType.Increase,
                         phone + " Account Balance: increase " + addAmount + " $"
                 ));
+        log.info("{}",logMessage);
 
         return targetAccount;
     }
@@ -70,6 +70,15 @@ public class AccountService {
         if(AfterCountBalance>=0){
             targetAccount.setAccountBalance(AfterCountBalance);
             accountRepo.save(targetAccount);
+
+            String logMessage = userLogWebClientRequest.createUserLog(
+                    new RequestLogUser(
+                            phone,
+                            TransactionType.Reduce,
+                            phone + " Account Balance: reduce " + addAmount + " $"
+                    ));
+            log.info("{}",logMessage);
+
             return targetAccount;
         }else{
             throw new RuntimeException("Your Balance have not enough money.");
