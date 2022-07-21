@@ -1,6 +1,9 @@
 package com.garycoffee.account.service;
 
 import com.garycoffee.account.dto.CreateAccountRequest;
+import com.garycoffee.account.dto.RequestLogUser;
+import com.garycoffee.account.dto.TransactionType;
+import com.garycoffee.account.dto.UserLogWebClientRequest;
 import com.garycoffee.account.model.Account;
 import com.garycoffee.account.repo.AccountRepo;
 import lombok.AllArgsConstructor;
@@ -8,13 +11,18 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 @AllArgsConstructor
 @Service
 @Slf4j
 public class AccountService {
 
-    @Autowired
+    @Resource
     private AccountRepo accountRepo;
+
+    @Resource
+    private UserLogWebClientRequest userLogWebClientRequest;
 
     public Account createAccount(CreateAccountRequest req){
         Account account = new Account();
@@ -44,6 +52,14 @@ public class AccountService {
         targetAccount.setAccountBalance(AfterCountBalance);
         targetAccount.setIntegralBalance(targetAccount.getIntegralBalance()+addAmount/10);
         accountRepo.save(targetAccount);
+
+        userLogWebClientRequest.createUserLog(
+                new RequestLogUser(
+                        phone,
+                        TransactionType.Increase,
+                        phone + " Account Balance: increase " + addAmount + " $"
+                ));
+
         return targetAccount;
     }
 
