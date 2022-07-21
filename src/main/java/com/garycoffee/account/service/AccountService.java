@@ -71,13 +71,13 @@ public class AccountService {
             targetAccount.setAccountBalance(AfterCountBalance);
             accountRepo.save(targetAccount);
 
-            String logMessage = userLogWebClientRequest.createUserLog(
+            userLogWebClientRequest.createUserLog(
                     new RequestLogUser(
                             phone,
                             TransactionType.Reduce,
                             phone + " Account Balance: reduce " + addAmount + " $"
                     ));
-            log.info("{}",logMessage);
+
 
             return targetAccount;
         }else{
