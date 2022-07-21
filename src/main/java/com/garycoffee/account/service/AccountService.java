@@ -52,13 +52,13 @@ public class AccountService {
         targetAccount.setIntegralBalance(targetAccount.getIntegralBalance()+addAmount/10);
         accountRepo.save(targetAccount);
 
-        String logMessage = userLogWebClientRequest.createUserLog(
+        userLogWebClientRequest.createUserLog(
                 new RequestLogUser(
                         phone,
                         TransactionType.Increase,
                         phone + " Account Balance: increase " + addAmount + " $"
                 ));
-        log.info("{}",logMessage);
+
 
         return targetAccount;
     }
