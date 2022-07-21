@@ -1,5 +1,5 @@
-server:
-    port: $PORT
+#server:
+#    port: $PORT
 #server:
 #    port: 8070
 #spring:

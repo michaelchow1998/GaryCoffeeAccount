@@ -57,7 +57,8 @@ public class AccountService {
         req.setPhone(phone);
         req.setTransactionType(TransactionType.Increase);
         req.setMessage(phone + " Account Balance: increase $" + addAmount);
-        userLogWebClientRequest.createUserLog(req);
+        String message =userLogWebClientRequest.createUserLog(req);
+        log.info(message);
 
         return targetAccount;
     }
@@ -75,8 +76,8 @@ public class AccountService {
             req.setPhone(phone);
             req.setTransactionType(TransactionType.Reduce);
             req.setMessage(phone + " Account Balance: increase $" + addAmount);
-
-            userLogWebClientRequest.createUserLog(req);
+            String message =userLogWebClientRequest.createUserLog(req);
+            log.info(message);
 
 
             return targetAccount;
