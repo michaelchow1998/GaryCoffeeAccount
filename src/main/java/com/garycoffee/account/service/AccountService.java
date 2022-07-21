@@ -52,13 +52,12 @@ public class AccountService {
         targetAccount.setIntegralBalance(targetAccount.getIntegralBalance()+addAmount/10);
         accountRepo.save(targetAccount);
 
-        userLogWebClientRequest.createUserLog(
-                new RequestLogUser(
-                        phone,
-                        TransactionType.Increase,
-                        phone + " Account Balance: increase " + addAmount + " $"
-                ));
-
+        //Set up UserLog
+        RequestLogUser req = new RequestLogUser();
+        req.setPhone(phone);
+        req.setTransactionType(TransactionType.Increase);
+        req.setMessage(phone + " Account Balance: increase $" + addAmount);
+        userLogWebClientRequest.createUserLog(req);
 
         return targetAccount;
     }
@@ -71,12 +70,12 @@ public class AccountService {
             targetAccount.setAccountBalance(AfterCountBalance);
             accountRepo.save(targetAccount);
 
-            userLogWebClientRequest.createUserLog(
-                    new RequestLogUser(
-                            phone,
-                            TransactionType.Reduce,
-                            phone + " Account Balance: reduce " + addAmount + " $"
-                    ));
+            //Set up UserLog
+            RequestLogUser req = new RequestLogUser();
+            req.setPhone(phone);
+            req.setTransactionType(TransactionType.Reduce);
+            req.setMessage(phone + " Account Balance: increase $" + addAmount);
+            userLogWebClientRequest.createUserLog(req);
 
 
             return targetAccount;
