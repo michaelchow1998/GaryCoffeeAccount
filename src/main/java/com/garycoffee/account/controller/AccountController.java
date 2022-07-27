@@ -35,7 +35,11 @@ public class AccountController {
         return ResponseEntity.ok().body(account);
     }
 
-
+    @GetMapping("/exits/{phone}")
+    public ResponseEntity<Boolean> fetchAccountExitsByPhone(@PathVariable String phone){
+        Boolean exits = accountService.existsAccountByPhone(phone);
+        return ResponseEntity.ok().body(exits);
+    }
 
     //PUT - ADD Balance to User
     @PutMapping("/addBalance")

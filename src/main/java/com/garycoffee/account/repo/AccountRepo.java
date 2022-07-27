@@ -8,4 +8,6 @@ public interface AccountRepo extends MongoRepository<Account, String> {
     Account getAccountByUsername(String username);
 
     Account getAccountByPhone(String phone);
+
+    boolean existsAccountByPhone(String phone);
 }

@@ -43,6 +43,10 @@ public class AccountService {
        }
     }
 
+    public Boolean existsAccountByPhone(String phone){
+        return accountRepo.existsAccountByPhone(phone);
+    }
+
 
     public Account addBalance(String phone, Integer addAmount){
         Account targetAccount = accountRepo.getAccountByPhone(phone);
